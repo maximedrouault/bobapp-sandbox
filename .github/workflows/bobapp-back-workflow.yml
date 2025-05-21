@@ -1,9 +1,6 @@
-name: CI pipeline for BobApp-Backend
+name: BobApp-Backend CI/CD pipeline
 
-on:
-  push:
-    branches:
-      - develop
+on: [push, pull_request]
 
 env:
   BACKEND_PATH: 'back'
@@ -30,4 +27,25 @@ jobs:
 
       - name: Build with Maven
         working-directory: ${{ env.BACKEND_PATH }}
-        run: mvn --batch-mode clean compile
+        run: mvn -B clean compile
+
+  test-backend:
+    needs: build-backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: ${{ env.BACKEND_PATH }}
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: ${{ env.CACHE_MAVEN }}
+
+      - name: Run tests with Maven
+        working-directory: ${{ env.BACKEND_PATH }}
+        run: mvn -B clean test
