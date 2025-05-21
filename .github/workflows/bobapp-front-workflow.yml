@@ -1,0 +1,38 @@
+name: CI pipeline for BobApp-Frontend
+
+on:
+  push:
+    branches:
+      - develop
+
+env:
+  NODE_VERSION: '16'
+  CACHE_MAVEN: 'maven'
+  CACHE_NPM: 'npm'
+  CACHE_DEPENDENCY_PATH: 'front/package-lock.json'
+  FRONTEND_PATH: 'front'
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: ${{ env.FRONTEND_PATH }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: ${{ env.CACHE_NPM }}
+          cache-dependency-path: ${{ env.CACHE_DEPENDENCY_PATH }}
+
+      - name: Install dependencies
+        working-directory: ${{ env.FRONTEND_PATH }}
+        run: npm install
+
+      - name: Build the application
+        working-directory: ${{ env.FRONTEND_PATH }}
+        run: npm run build
