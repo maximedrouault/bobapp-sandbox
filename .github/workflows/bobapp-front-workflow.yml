@@ -57,3 +57,13 @@ jobs:
       - name: Run tests
         working-directory: ${{ env.FRONTEND_PATH }}
         run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+      - name: Publish tests report
+        uses: dorny/test-reporter@v2
+        if: always()
+        with:
+          name: Front-end Tests
+          working-directory: ${{ env.FRONTEND_PATH }}
+          path: test-results/*.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: java-junit
