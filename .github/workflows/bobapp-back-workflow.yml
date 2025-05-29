@@ -66,6 +66,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: ${{ env.BACKEND_PATH }}
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         with:
