@@ -81,7 +81,7 @@ jobs:
 
       - name: Run tests with Maven
         working-directory: ${{ env.BACKEND_PATH }}
-        run: mvn -B clean vérify
+        run: mvn -B clean verify
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
