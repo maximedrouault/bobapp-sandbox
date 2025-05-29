@@ -59,3 +59,13 @@ jobs:
           path: target/surefire-reports/*.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           reporter: java-junit
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        with:
+          args: >
+            -Dsonar.organization=maximedrouault
+            -Dsonar.projectKey=maximedrouault_bobapp-back
+            -Dsonar.projectBaseDir=${{ env.BACKEND_PATH }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
