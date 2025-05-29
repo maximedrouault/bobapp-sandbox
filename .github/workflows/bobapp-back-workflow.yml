@@ -60,6 +60,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           reporter: java-junit
 
+
+
+  quality-backend:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         with:
