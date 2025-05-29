@@ -66,6 +66,6 @@ jobs:
           args: >
             -Dsonar.organization=maximedrouault
             -Dsonar.projectKey=maximedrouault_bobapp-back
-            -Dsonar.projectBaseDir=${{ env.BACKEND_PATH }}
+#            -Dsonar.projectBaseDir=${{ env.BACKEND_PATH }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
