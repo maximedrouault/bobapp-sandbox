@@ -83,7 +83,7 @@ jobs:
         working-directory: ${{ env.BACKEND_PATH }}
         run: mvn -B clean verify
 
-      - name: SonarQube Scan
+      - name: Sonar Quality Scan
         uses: SonarSource/sonarqube-scan-action@v5
         with:
           projectBaseDir: ${{ env.BACKEND_PATH }}
