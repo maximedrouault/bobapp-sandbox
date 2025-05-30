@@ -101,5 +101,6 @@ jobs:
           args: >
             -Dsonar.organization=maximedrouault
             -Dsonar.projectKey=maximedrouault_bobapp-front
+            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
